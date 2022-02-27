@@ -1,1 +1,1 @@
-# OpwnWrt Build Shell Script
+# OpenWrt Build Shell Script
