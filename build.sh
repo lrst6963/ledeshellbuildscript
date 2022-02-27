@@ -61,6 +61,12 @@ rm -rf .config
 make menuconfig
 }
 
+gitclone(){
+git clone https://github.com/coolsnowwolf/lede.git ~/
+git clone https://github.com/kenzok8/small-package ~/lede/package/small-package
+git clone https://github.com/thinktip/luci-theme-neobird.git ~/lede/package
+}
+
 opt(){
 	echo "
 	
@@ -70,16 +76,17 @@ opt(){
 
 		3.更新配置(make menuconfig)
 
-		4.下载源码(make download)
+		4.下载编译库源码(make download)
 
 		5.开始编译(make -j12 V=s)
 		
 		6.清理编译文件(make clean && rm tmp)
 		
-		7.重新配置
+		7.重新配置(restart make config)
 		
-		8.退出脚本
+		8.退出脚本(Exit.)
 		
+		9.下载源码(git clone)
 
 	"
 	echo -e "$blue 输入选项: $een"
@@ -115,6 +122,10 @@ opt(){
 		            ;;
 		        "8")
 		            exit
+		            ;;
+		        "9")
+		            gitclone
+		            pause
 		            ;;
 		        *)
 		            echo "ERROR"
