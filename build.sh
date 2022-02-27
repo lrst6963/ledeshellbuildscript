@@ -67,8 +67,15 @@ git clone https://github.com/kenzok8/small-package ~/lede/package/small-package
 git clone https://github.com/thinktip/luci-theme-neobird.git ~/lede/package
 }
 
+buildtools(){
+sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
+}
+
 opt(){
-	echo "
+	echo -e "
+	
+$red ！！该脚本请在 ~/lede/ 目录下执行！！ $een
+
 	
 		1.更新源码(git pull)
 
@@ -87,9 +94,14 @@ opt(){
 		8.退出脚本(Exit.)
 		
 		9.下载源码(git clone)
+		
+		10.安装编译工具
+		
+		
+$red ！！该脚本请在 ~/lede/ 目录下执行！！ $een
 
 	"
-	echo -e "$blue 输入选项: $een"
+	echo -e "$blue 输入选项: $een\c"
 		    read oopt
 		    case $oopt in
 		        "1")
@@ -127,13 +139,27 @@ opt(){
 		            gitclone
 		            pause
 		            ;;
+		        "10")
+		            buildtools
+		            pause
+		            ;;
 		        *)
 		            echo "ERROR"
 		            ;;
 		    esac
 }
 	
-while true
-do
-opt
-done
+if [ $UID -ne 0 ];then
+	while true
+	do
+	 opt
+	done
+else
+	echo -e "
+	
+	$red请不要使用ROOT用户！请更换普通用户！$een
+	
+	"
+	exit 127
+fi
+
