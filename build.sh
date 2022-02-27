@@ -47,18 +47,24 @@ fi
 }
 
 cleartmp(){
-echo "确定清理？(输入y执行！)"
+echo -e "$red 确定清理？(输入y执行！): $een\c"
 read clearyes
-if [ $clear -ne "y" ];then
-	exit
-else
+if [ $clearyes == "y" ];then
 	make clean && rm -rf ~/lede/tmp/
+else
+	exit
 fi
 }
 
 reconfig(){
-rm -rf .config
-make menuconfig
+echo -e "$red 确定重新配置？(输入y执行！): $een\c"
+read reconfigyes
+if [ $reconfigyes == "y" ];then
+	rm -rf .config
+	make menuconfig
+else
+	exit
+fi
 }
 
 gitclone(){
